@@ -7,8 +7,14 @@ import java.util.List;
 
 public class NaiveStringFinder implements StringFinder {
 
+	private final String pattern;
+
+	public NaiveStringFinder(String pattern) {
+		this.pattern = pattern;
+	}
+
 	@Override
-	public List<Integer> search(String pattern, String text) {
+	public List<Integer> search(String text) {
 		List<Integer> result = Collections.emptyList();
 		if (pattern.equals(text)) {
 			result = Arrays.asList(0);
@@ -31,7 +37,6 @@ public class NaiveStringFinder implements StringFinder {
 				}
 				i += index;
 				index = 0;
-
 			}
 		}
 

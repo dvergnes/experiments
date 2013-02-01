@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface StringFinder {
 
-	List<Integer> search(String pattern, String text);
+	List<Integer> search(String text);
 
 }

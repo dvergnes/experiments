@@ -13,6 +13,7 @@ import org.junit.Test;
 
 public abstract class AbstractStringFinderTest {
 
+	private static final String PATTERN = "toto";
 	private StringFinder stringFinder;
 
 	public AbstractStringFinderTest() {
@@ -21,27 +22,25 @@ public abstract class AbstractStringFinderTest {
 
 	@Before
 	public void setUp() {
-		stringFinder = createStringFinder();
+		stringFinder = createStringFinder(PATTERN);
 	}
 
-	protected abstract StringFinder createStringFinder();
+	protected abstract StringFinder createStringFinder(String pattern);
 
 	@Test
 	public void testSearchNoMatch() {
-		assertTrue(stringFinder.search("too long pattern for this text",
-				"too short").isEmpty());
+		assertTrue(stringFinder.search("to").isEmpty());
 	}
 
 	@Test
 	public void testSearchPerfectMatch() {
-		String pattern = "exactly the same";
-		assertThat(stringFinder.search(pattern, pattern)).containsExactly(0);
+		assertThat(stringFinder.search(PATTERN)).containsExactly(0);
 	}
 
 	@Test
 	public void testSearch() {
 		String text = "treuil toto voiture truc toreador totorototu rototototo";
-		String patternString = "toto";
+		String patternString = PATTERN;
 		Pattern pattern = Pattern.compile(patternString);
 		LinkedList<Integer> indexes = new LinkedList<Integer>();
 		Matcher matcher = pattern.matcher(text);
@@ -49,7 +48,7 @@ public abstract class AbstractStringFinderTest {
 			indexes.add(matcher.start());
 		}
 		System.out.println(indexes);
-		assertEquals(indexes, stringFinder.search(patternString, text));
+		assertEquals(indexes, stringFinder.search(text));
 	}
 
 }
