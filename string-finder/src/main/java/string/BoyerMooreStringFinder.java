@@ -8,11 +8,11 @@ import java.util.Map;
 public class BoyerMooreStringFinder implements StringFinder {
 
 	private final String pattern;
-	private final Map<Character, Integer> wrongRuleTable;
+	private final Map<Character, Integer> wrongCharacterRuleTable;
 
 	public BoyerMooreStringFinder(String pattern) {
 		this.pattern = pattern;
-		wrongRuleTable = prepareWrongRuleTable(pattern);
+		wrongCharacterRuleTable = prepareWrongRuleTable(pattern);
 	}
 
 	@Override
@@ -42,7 +42,7 @@ public class BoyerMooreStringFinder implements StringFinder {
 	}
 
 	private Integer getNextPosition(char currentChar) {
-		Integer shift = wrongRuleTable.get(currentChar);
+		Integer shift = wrongCharacterRuleTable.get(currentChar);
 		if (shift == null) {
 			shift = pattern.length();
 		}
