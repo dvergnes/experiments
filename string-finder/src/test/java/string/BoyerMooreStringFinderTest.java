@@ -38,4 +38,23 @@ public class BoyerMooreStringFinderTest extends AbstractStringFinderTest {
 		return new BoyerMooreStringFinder(pattern);
 	}
 
+	@Test
+	public void testSuffixes() throws Exception {
+		int[] suffixes = BoyerMooreStringFinder.suffixes("TOTOTO");
+	}
+
+	@Test
+	public void testPreBmGs() throws Exception {
+		int[] goodSuffixesTable = BoyerMooreStringFinder
+				.prepareGoodSuffixesTable("ANPANMAN");
+		assertEquals(1, goodSuffixesTable[7]);
+		assertEquals(8, goodSuffixesTable[6]);
+		assertEquals(3, goodSuffixesTable[5]);
+		assertEquals(6, goodSuffixesTable[4]);
+		assertEquals(6, goodSuffixesTable[3]);
+		assertEquals(6, goodSuffixesTable[2]);
+		assertEquals(6, goodSuffixesTable[1]);
+		assertEquals(6, goodSuffixesTable[0]);
+	}
+
 }

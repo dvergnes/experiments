@@ -9,10 +9,61 @@ public class BoyerMooreStringFinder implements StringFinder {
 
 	private final String pattern;
 	private final Map<Character, Integer> wrongCharacterRuleTable;
+	private final int[] goodSuffixesRuleTable;
 
 	public BoyerMooreStringFinder(String pattern) {
 		this.pattern = pattern;
 		wrongCharacterRuleTable = prepareWrongRuleTable(pattern);
+		goodSuffixesRuleTable = prepareGoodSuffixesTable(pattern);
+	}
+
+	protected static int[] suffixes(String pattern) {
+		int f = 0;
+		int patternLength = pattern.length();
+		int[] suff = new int[patternLength];
+
+		suff[patternLength - 1] = patternLength;
+		int g = patternLength - 1;
+		for (int i = patternLength - 2; i >= 0; --i) {
+			if (i > g && suff[i + patternLength - 1 - f] < i - g) {
+				suff[i] = suff[i + patternLength - 1 - f];
+			} else {
+				if (i < g) {
+					g = i;
+				}
+				f = i;
+				while (g >= 0
+						&& pattern.charAt(g) == pattern.charAt(g
+								+ patternLength - 1 - f)) {
+					--g;
+				}
+				suff[i] = f - g;
+			}
+		}
+		return suff;
+	}
+
+	protected static int[] prepareGoodSuffixesTable(String pattern) {
+		int patternLength = pattern.length();
+		int[] suff = suffixes(pattern);
+		int[] bmGs = new int[patternLength];
+
+		for (int i = 0; i < patternLength; ++i) {
+			bmGs[i] = patternLength;
+		}
+		for (int i = patternLength - 1; i >= 0; --i) {
+			if (suff[i] == i + 1) {
+				for (int j = 0; j < patternLength - 1 - i; ++j) {
+					if (bmGs[j] == patternLength) {
+						bmGs[j] = patternLength - 1 - i;
+					}
+				}
+			}
+		}
+		for (int i = 0; i <= patternLength - 2; ++i) {
+			bmGs[patternLength - 1 - suff[i]] = patternLength - 1 - i;
+		}
+		return bmGs;
 	}
 
 	@Override
@@ -34,7 +85,8 @@ public class BoyerMooreStringFinder implements StringFinder {
 					result.add(i - j + 1);
 					i += pattern.length() - 1;
 				} else {
-					i += getNextPosition(currentChar);
+					i += Math.max(goodSuffixesRuleTable[pattern.length() - 1
+							- j], getNextPosition(currentChar));
 				}
 			}
 		}
