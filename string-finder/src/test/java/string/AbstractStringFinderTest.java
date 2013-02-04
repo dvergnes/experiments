@@ -47,7 +47,6 @@ public abstract class AbstractStringFinderTest {
 		while (matcher.find()) {
 			indexes.add(matcher.start());
 		}
-		System.out.println(indexes);
 		assertEquals(indexes, stringFinder.search(text));
 	}
 
