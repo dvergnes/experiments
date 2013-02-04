@@ -23,20 +23,20 @@ public class NaiveStringFinder implements StringFinder {
 			int i = 0;
 			int index = 0;
 			while (i < text.length()) {
-				while (i < text.length()
-						&& (text.charAt(i) != pattern.charAt(index))) {
+				if (text.charAt(i) != pattern.charAt(index)) {
 					i++;
+				} else {
+					while ((i + index < text.length())
+							&& (index < pattern.length())
+							&& (text.charAt(i + index) == pattern.charAt(index))) {
+						index++;
+					}
+					if (index == pattern.length()) {
+						result.add(i);
+					}
+					i += index;
+					index = 0;
 				}
-				while ((i + index < text.length())
-						&& (index < pattern.length())
-						&& (text.charAt(i + index) == pattern.charAt(index))) {
-					index++;
-				}
-				if (index == pattern.length()) {
-					result.add(i);
-				}
-				i += index;
-				index = 0;
 			}
 		}
 
