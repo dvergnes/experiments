@@ -56,10 +56,7 @@ public class BoyerMooreStringFinder implements StringFinder {
 		int length = subPattern.length();
 		for (int i = 0; i < length; i++) {
 			char currentChar = pattern.charAt(i);
-			if (map.get(currentChar) == null) {
-				map.put(currentChar,
-						length - subPattern.lastIndexOf(currentChar));
-			}
+			map.put(currentChar, length - i);
 		}
 		return map;
 	}
