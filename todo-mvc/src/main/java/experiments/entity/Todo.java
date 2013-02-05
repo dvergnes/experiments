@@ -2,16 +2,13 @@ package experiments.entity;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
+@Document
 public class Todo {
 
 	@Id
-	@GeneratedValue
 	private long id;
 
 	private String username;
@@ -24,7 +21,6 @@ public class Todo {
 
 	private boolean completed;
 
-	@Column(name = "creationOrder")
 	private int order;
 
 	/**
@@ -114,7 +110,8 @@ public class Todo {
 	}
 
 	/**
-	 * @param username the username to set
+	 * @param username
+	 *            the username to set
 	 */
 	public void setUsername(String username) {
 		this.username = username;
