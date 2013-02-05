@@ -6,10 +6,10 @@ import javax.servlet.ServletRegistration;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.rest.webmvc.RepositoryRestExporterServlet;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.web.servlet.DispatcherServlet;
 
 public class TodoWebAppInitializer implements WebApplicationInitializer {
 	private static final Logger logger = LoggerFactory
@@ -27,19 +27,11 @@ public class TodoWebAppInitializer implements WebApplicationInitializer {
 				.addListener(new ContextLoaderListener(applicationContext));
 
 		// Register and map the dispatcher servlet
-		// DispatcherServlet servlet = new
-		// DispatcherServlet(applicationContext);
-		// ServletRegistration.Dynamic dispatcher = servletContext.addServlet(
-		// "dispatcher", servlet);
-		// dispatcher.setLoadOnStartup(1);
-		// dispatcher.addMapping("/rest/*");
-
-		RepositoryRestExporterServlet exporter = new RepositoryRestExporterServlet();
-
-		ServletRegistration.Dynamic reg = servletContext.addServlet(
-				"rest-exporter", exporter);
-		reg.setLoadOnStartup(1);
-		reg.addMapping("/*");
+		DispatcherServlet servlet = new DispatcherServlet(applicationContext);
+		ServletRegistration.Dynamic dispatcher = servletContext.addServlet(
+				"dispatcher", servlet);
+		dispatcher.setLoadOnStartup(1);
+		dispatcher.addMapping("/rest/*");
 
 	}
 
