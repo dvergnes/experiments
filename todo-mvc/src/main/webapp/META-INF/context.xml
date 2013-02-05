@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+	<Resource name="jdbc/todo" auth="Container"
+		type="javax.sql.DataSource" driverClassName="com.mysql.jdbc.Driver"
+		url="jdbc:mysql://localhost:3306/todo"
+		maxActive="40"
+    	maxIdle="40"
+    	initialSize="1"
+    	minIdle="1"
+    	maxWait="1000"
+		username="todo" password="t0d0" validationQuery="select 1" />
+</Context>
