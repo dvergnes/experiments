@@ -1,5 +1,6 @@
 package experiments.config;
 
+import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
@@ -9,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.DispatcherServlet;
 
 public class TodoWebAppInitializer implements WebApplicationInitializer {
@@ -25,6 +27,11 @@ public class TodoWebAppInitializer implements WebApplicationInitializer {
 
 		servletContext
 				.addListener(new ContextLoaderListener(applicationContext));
+
+		FilterRegistration filterRegistration = servletContext.addFilter(
+				"springSecurity", new DelegatingFilterProxy(
+						"springSecurityFilterChain", applicationContext));
+		filterRegistration.addMappingForUrlPatterns(null, false, "/*");
 
 		// Register and map the dispatcher servlet
 		DispatcherServlet servlet = new DispatcherServlet(applicationContext);

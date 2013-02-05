@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import experiments.entity.Todo;
+import experiments.exception.UnauthorizedActionException;
 import experiments.repository.TodoRepository;
 
 @Service
@@ -17,23 +18,38 @@ public class TodoService {
 	private TodoRepository todoRepository;
 
 	/**
+	 * @param username
 	 * @return
 	 * @see org.springframework.data.jpa.repository.JpaRepository#findAll()
 	 */
-	public List<Todo> findAll() {
-		return todoRepository.findAll();
+	public List<Todo> findAll(String username) {
+		return todoRepository.findByUsername(username);
 	}
 
-	public Todo create(Todo todo) {
+	public Todo create(String username, Todo todo) {
+		todo.setUsername(username);
 		return todoRepository.save(todo);
 	}
 
-	public void update(Long id, Todo todo) {
+	public void update(String username, Long id, Todo todo)
+			throws UnauthorizedActionException {
+		loadTodo(username, id);
 		todo.setLastUpdate(new Date());
 		todoRepository.save(todo);
 	}
 
-	public void delete(Long id) {
+	private Todo loadTodo(String username, Long id)
+			throws UnauthorizedActionException {
+		Todo old = todoRepository.findOne(id);
+		if (!username.equals(old.getUsername())) {
+			throw new UnauthorizedActionException();
+		}
+		return old;
+	}
+
+	public void delete(String username, Long id)
+			throws UnauthorizedActionException {
+		loadTodo(username, id);
 		todoRepository.delete(id);
 	}
 
