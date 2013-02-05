@@ -26,6 +26,6 @@ public class MongoApp {
 		log.info(mongoOps.findOne(new Query(where("title").is("title")),
 				Todo.class));
 
-		// mongoOps.dropCollection("todo");
+		mongoOps.dropCollection("todo");
 	}
 }
