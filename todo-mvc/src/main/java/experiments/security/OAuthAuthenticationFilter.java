@@ -96,21 +96,28 @@ public class OAuthAuthenticationFilter<T> extends GenericFilterBean {
 		logger.debug("Handle callback after weibo authentication");
 		OAuth2ConnectionFactory<?> connectionFactory = (OAuth2ConnectionFactory<?>) connectionFactoryLocator
 				.getConnectionFactory(this.clazz);
-		ServletWebRequest request = new ServletWebRequest(httpRequest);
-		Connection<?> connection = connectSupport.completeConnection(
-				connectionFactory, request);
+		if (connectionFactory != null) {
+			ServletWebRequest request = new ServletWebRequest(httpRequest);
+			Connection<?> connection = connectSupport.completeConnection(
+					connectionFactory, request);
 
-		// User has returned after authenticating through Social network web
-		// site. Need to authenticate to Spring Security.
-		UserProfile userProfile = connection.fetchUserProfile();
-		OAuthAuthenticationToken token = new OAuthAuthenticationToken(
-				connection.getKey(), userProfile);
-		token.setDetails(authenticationDetailsSource.buildDetails(httpRequest));
+			// User has returned after authenticating through Social network web
+			// site. Need to authenticate to Spring Security.
+			UserProfile userProfile = connection.fetchUserProfile();
+			OAuthAuthenticationToken token = new OAuthAuthenticationToken(
+					connection.getKey(), userProfile);
+			token.setDetails(authenticationDetailsSource
+					.buildDetails(httpRequest));
 
-		Authentication authentication = getAuthenticationManager()
-				.authenticate(token);
-		// Setup the security context
-		SecurityContextHolder.getContext().setAuthentication(authentication);
+			Authentication authentication = getAuthenticationManager()
+					.authenticate(token);
+			// Setup the security context
+			SecurityContextHolder.getContext()
+					.setAuthentication(authentication);
+		} else {
+			logger.warn("Unable to find appropriate connection factory for "
+					+ this.clazz);
+		}
 	}
 
 	/**
