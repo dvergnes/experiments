@@ -6,7 +6,7 @@
 		</encoder>
 	</appender>
 	
-	<logger name="com.orange" level="debug">
+	<logger name="eperiments" level="debug">
 	</logger>
 	
 	<root level="info">
