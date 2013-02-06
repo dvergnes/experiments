@@ -31,14 +31,14 @@ public class TodoService {
 		return todoRepository.save(todo);
 	}
 
-	public void update(String username, Long id, Todo todo)
+	public void update(String username, String id, Todo todo)
 			throws UnauthorizedActionException {
 		loadTodo(username, id);
 		todo.setLastUpdate(new Date());
 		todoRepository.save(todo);
 	}
 
-	private Todo loadTodo(String username, Long id)
+	private Todo loadTodo(String username, String id)
 			throws UnauthorizedActionException {
 		Todo old = todoRepository.findOne(id);
 		if (!username.equals(old.getUsername())) {
@@ -47,7 +47,7 @@ public class TodoService {
 		return old;
 	}
 
-	public void delete(String username, Long id)
+	public void delete(String username, String id)
 			throws UnauthorizedActionException {
 		loadTodo(username, id);
 		todoRepository.delete(id);

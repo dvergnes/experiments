@@ -16,10 +16,19 @@
 		<spring.version>3.1.2.RELEASE</spring.version>
 		<cglib.version>2.2.2</cglib.version>
 		<logback.version>1.0.9</logback.version>
+		<junit.version>4.11</junit.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
 	<dependencies>
+		<!-- Test -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+	
 		<!-- Logback -->
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
@@ -49,7 +58,6 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
 			<version>${spring.version}</version>
-			<type>jar</type>
 			<scope>test</scope>
 		</dependency>
 

@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Todo {
 
 	@Id
-	private long id;
+	private String id;
 
 	private String username;
 
@@ -71,7 +71,7 @@ public class Todo {
 	/**
 	 * @return the id
 	 */
-	public long getId() {
+	public String getId() {
 		return id;
 	}
 

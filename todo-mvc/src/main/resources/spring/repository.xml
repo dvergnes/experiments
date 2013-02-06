@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mongo="http://www.springframework.org/schema/data/mongo" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd">
+
+	<bean
+		class='org.springframework.context.support.PropertySourcesPlaceholderConfigurer'>
+		<property name="locations">
+			<list>
+				<ref bean="propertiesLocation" />
+			</list>
+		</property>
+	</bean>
+	<bean id="propertiesLocation" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:comp/env/todo/configPropertiesPath" />
+		<property name="defaultObject" value="classpath:/configuration.properties" />
+	</bean>
+
+	<mongo:mongo id="mongo" />
+
+	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+		<constructor-arg ref="mongo" />
+		<constructor-arg value="databaseName" />
+	</bean>
+
+	<mongo:repositories base-package="experiments.repository" />
+	<bean class="org.springframework.data.mongodb.core.mapping.event.LoggingEventListener"/>
+
+</beans>

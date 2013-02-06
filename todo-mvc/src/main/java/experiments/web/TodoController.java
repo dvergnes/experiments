@@ -52,7 +52,7 @@ public class TodoController {
 	@RequestMapping(value = "{id}", method = RequestMethod.PUT, consumes = "application/json")
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
-	public Todo update(@RequestBody Todo todo, @PathVariable Long id)
+	public Todo update(@RequestBody Todo todo, @PathVariable String id)
 			throws UnauthorizedActionException {
 		LOGGER.info("Update todo: '{}'", todo);
 		String username = SecurityContextHolder.getContext()
@@ -64,7 +64,7 @@ public class TodoController {
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@ResponseBody
-	public void delete(@PathVariable Long id)
+	public void delete(@PathVariable String id)
 			throws UnauthorizedActionException {
 		LOGGER.info("Delete todo id: '{}'", id);
 		String username = SecurityContextHolder.getContext()

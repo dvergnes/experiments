@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @ComponentScan(basePackages = "experiments", excludeFilters = { @Filter(Configuration.class) })
-@ImportResource("/WEB-INF/spring/repository.xml")
+@ImportResource("classpath:spring/repository.xml")
 @EnableTransactionManagement
 public class MainConfig {
 

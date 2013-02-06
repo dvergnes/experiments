@@ -9,7 +9,7 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
-@ImportResource("/WEB-INF/spring/security.xml")
+@ImportResource("classpath:spring/security.xml")
 public class SecurityConfig {
 
 	@Bean
