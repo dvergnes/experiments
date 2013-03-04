@@ -10,9 +10,9 @@ import org.junit.Test;
 public class BuggyCodeTest {
 
 	@Test
-	public void testF() {
-		ArrayList result = BuggyCode
-				.f(new ArrayList(Arrays.asList(3, 1, 3, 2)));
+	public void testSortAsc() {
+		ArrayList result = BuggyCode.sortAsc(new ArrayList(Arrays.asList(3, 1,
+				3, 2)));
 		assertThat(result).containsExactly(1, 2, 3, 3);
 	}
 

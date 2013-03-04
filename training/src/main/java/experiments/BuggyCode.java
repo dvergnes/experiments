@@ -5,7 +5,7 @@ import java.util.Collections;
 
 public class BuggyCode {
 
-	public static ArrayList f(ArrayList list) {
+	public static ArrayList sortAsc(ArrayList list) {
 		ArrayList t = new ArrayList();
 		while (!list.isEmpty()) {
 			Object max = Collections.max(list);
