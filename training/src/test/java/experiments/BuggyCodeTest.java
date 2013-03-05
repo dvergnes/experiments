@@ -11,6 +11,13 @@ import org.junit.Test;
 public class BuggyCodeTest {
 
 	@Test
+	public void testBuggySortAsc() {
+		List<Integer> result = BuggyCode.buggySortAsc(new ArrayList<Integer>(
+				Arrays.asList(3, 1, 3, 2)));
+		assertThat(result).containsExactly(1, 2, 3, 3);
+	}
+
+	@Test
 	public void testSortAsc() {
 		List<Integer> result = BuggyCode.sortAsc(new ArrayList<Integer>(Arrays
 				.asList(3, 1, 3, 2)));
