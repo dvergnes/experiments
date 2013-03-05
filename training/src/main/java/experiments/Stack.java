@@ -2,7 +2,7 @@ package experiments;
 
 public class Stack {
 
-	private int min = Integer.MAX_VALUE;
+	private Entry min;
 	private Entry current;
 
 	private static class Entry {
@@ -11,23 +11,32 @@ public class Stack {
 	}
 
 	public Integer pop() {
-		int value = current.value;
-		current = current.next;
+		Integer value = null;
+		if (current != null) {
+			if (current.value == min.value) {
+				min = min.next;
+			}
+			value = current.value;
+			current = current.next;
+		}
 		return value;
 	}
 
-	public void push(int entry) {
-		if (entry < min) {
-			min = entry;
+	public void push(int i) {
+		if (min == null || i < min.value) {
+			Entry minEntry = new Entry();
+			minEntry.next = min;
+			minEntry.value = i;
+			min = minEntry;
 		}
 		Entry newEntry = new Entry();
-		newEntry.value = entry;
+		newEntry.value = i;
 		newEntry.next = current;
 		current = newEntry;
 	}
 
-	public int min() {
-		return min;
+	public Integer min() {
+		return min == null ? null : min.value;
 	}
 
 }
