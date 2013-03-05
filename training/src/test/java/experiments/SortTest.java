@@ -8,18 +8,18 @@ import java.util.List;
 
 import org.junit.Test;
 
-public class BuggyCodeTest {
+public class SortTest {
 
 	@Test
 	public void testBuggySortAsc() {
-		List<Integer> result = BuggyCode.buggySortAsc(new ArrayList<Integer>(
+		List<Integer> result = Sort.buggySortAsc(new ArrayList<Integer>(
 				Arrays.asList(3, 1, 3, 2)));
 		assertThat(result).containsExactly(1, 2, 3, 3);
 	}
 
 	@Test
 	public void testSortAsc() {
-		List<Integer> result = BuggyCode.sortAsc(new ArrayList<Integer>(Arrays
+		List<Integer> result = Sort.sortAsc(new ArrayList<Integer>(Arrays
 				.asList(3, 1, 3, 2)));
 		assertThat(result).containsExactly(1, 2, 3, 3);
 	}

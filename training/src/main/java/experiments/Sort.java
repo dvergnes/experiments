@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class BuggyCode {
+public class Sort {
 
 	public static <T extends Comparable<? super T>> List<T> buggySortAsc(
 			List<T> list) {

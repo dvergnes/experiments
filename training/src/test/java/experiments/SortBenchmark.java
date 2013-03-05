@@ -9,7 +9,7 @@ import com.google.caliper.Param;
 import com.google.caliper.Runner;
 import com.google.caliper.SimpleBenchmark;
 
-public class BuggyCodeBenchmark extends SimpleBenchmark {
+public class SortBenchmark extends SimpleBenchmark {
 	@Param({ "1000", "10000", "50000" })
 	private int size;
 	private List<Integer> values;
@@ -26,19 +26,19 @@ public class BuggyCodeBenchmark extends SimpleBenchmark {
 	public List<Integer> timeBuggySortAsc(int reps) {
 		List<Integer> dummy = new LinkedList<Integer>();
 		for (int i = 0; i < reps; i++) {
-			dummy.addAll(BuggyCode.buggySortAsc(values));
+			dummy.addAll(Sort.buggySortAsc(values));
 		}
 		return dummy;
 	}
 
 	public void timeSortAsc(int reps) {
 		for (int i = 0; i < reps; i++) {
-			BuggyCode.sortAsc(values);
+			Sort.sortAsc(values);
 		}
 	}
 
 	public static void main(String[] args) throws Exception {
-		Runner.main(BuggyCodeBenchmark.class,
+		Runner.main(SortBenchmark.class,
 				new String[] { "--timeUnit", "ms" });
 	}
 
