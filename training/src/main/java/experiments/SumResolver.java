@@ -18,6 +18,20 @@ public class SumResolver {
 			this.b = b;
 		}
 
+		public int sum() {
+			return a + b;
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see java.lang.Object#toString()
+		 */
+		@Override
+		public String toString() {
+			return "Pair {" + a + ", " + b + "}";
+		}
+
 		/*
 		 * (non-Javadoc)
 		 * 
@@ -48,30 +62,24 @@ public class SumResolver {
 				return false;
 			}
 			Pair other = (Pair) obj;
-			return sum() == other.sum();
-		}
-
-		public int sum() {
-			return a + b;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.lang.Object#toString()
-		 */
-		@Override
-		public String toString() {
-			return "Pair {" + a + ", " + b + "}";
+			if (a != other.a && a != other.b) {
+				return false;
+			}
+			if (b != other.b && b != other.a) {
+				return false;
+			}
+			return true;
 		}
 
 	}
 
 	public static Set<Pair> findPairs(List<Integer> numbers, int total) {
 		Collection<Pair> allPairs = new LinkedList<SumResolver.Pair>();
-		for (Integer i : numbers) {
-			for (Integer j : numbers) {
-				allPairs.add(new Pair(i, j));
+		for (int i = 0; i < numbers.size(); i++) {
+			for (int j = 0; j < numbers.size(); j++) {
+				if (i != j) {
+					allPairs.add(new Pair(numbers.get(i), numbers.get(j)));
+				}
 			}
 		}
 		Set<Pair> result = new HashSet<SumResolver.Pair>();
