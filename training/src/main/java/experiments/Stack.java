@@ -1,21 +1,29 @@
 package experiments;
 
-import java.util.LinkedList;
-
 public class Stack {
 
 	private int min = Integer.MAX_VALUE;
-	private final LinkedList<Integer> elements = new LinkedList<Integer>();
+	private Entry current;
+
+	private static class Entry {
+		private int value;
+		private Entry next;
+	}
 
 	public Integer pop() {
-		return elements.pop();
+		int value = current.value;
+		current = current.next;
+		return value;
 	}
 
 	public void push(int entry) {
 		if (entry < min) {
 			min = entry;
 		}
-		elements.push(entry);
+		Entry newEntry = new Entry();
+		newEntry.value = entry;
+		newEntry.next = current;
+		current = newEntry;
 	}
 
 	public int min() {
